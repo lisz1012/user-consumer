@@ -23,3 +23,6 @@ management:
     shutdown:
       # 调 Up/Down 状态
       enabled: true
+feign:
+  circuitbreaker:
+    enabled: true
