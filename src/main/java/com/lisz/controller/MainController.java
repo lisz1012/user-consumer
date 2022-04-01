@@ -2,6 +2,7 @@ package com.lisz.controller;
 
 import com.lisz.api.ConsumerApi;
 import com.lisz.entity.User;
+import com.lisz.service.RestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +13,17 @@ public class MainController {
 	@Autowired
 	private ConsumerApi consumerApi; // 写 UserApi 也行
 
+	@Autowired
+	private RestService service;
+
 	@GetMapping("/alive")
 	public String alive(){
 		return consumerApi.alive();
+	}
+
+	@GetMapping("/alive2")
+	public String alive2(){
+		return service.alive();
 	}
 
 	@GetMapping("/user/{id}")
