@@ -4,12 +4,21 @@ import com.lisz.api.ConsumerApi;
 import com.lisz.entity.User;
 import com.lisz.service.RestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
+@RefreshScope
 public class MainController {
+	@Value("${server.port}")
+	private int port;
+
+	@Value("${myconfig}")
+	private String myConfig;
+
 	@Autowired
 	private ConsumerApi consumerApi; // 写 UserApi 也行
 
@@ -18,12 +27,12 @@ public class MainController {
 
 	@GetMapping("/alive")
 	public String alive(){
-		return consumerApi.alive();
+		return "myconfig: " + myConfig + "Consumer port: " + port + " Provider " + consumerApi.alive();
 	}
 
 	@GetMapping("/alive2")
 	public String alive2(){
-		return service.alive();
+		return "Consumer port: " + port + " Provider " + service.alive();
 	}
 
 	@GetMapping("/user/{id}")

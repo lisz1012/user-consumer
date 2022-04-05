@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: user-consumer
+  #zipkin
+  zipkin:
+    base-url: http://localhost:9411/
+    #采样比例1
+  sleuth:
+    sampler:
+      rate: 1
+  cloud:
+    config:
+      # 读取test分支下的devprofile的文件：user-consumer-dev.yml
+      label: test
+      profile: dev
+      # Option 1： 估计机器取得配置
+      # uri: http://localhost:9999
+      # Option 2： 从注册中心找Config的服务端
+      discovery:
+        enabled: true
+        service-id: config-center # 对应配置中心的服务名
+      import-check:
+        enabled: false
+  port: 8081
+eureka:
+  client:
+    service-url:
+      #      defaultZone: http://registrar:7900/eureka/   #  docker环境用这个配置
+      defaultZone: http://lisz:666@localhost:7900/eureka/
+    healthcheck:
+      enabled: true
+  instance:
+    metadata-map:
+      dalao: lisz-hahaha
+management:
+  endpoints:
+    web:
+      # Actuator上报
+      exposure:
+        include: '*'
+  endpoint:
+    shutdown:
+      # 调 Up/Down 状态
+      enabled: true
+feign:
+  circuitbreaker:
+    enabled: true
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: localhost
