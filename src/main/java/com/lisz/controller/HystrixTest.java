@@ -11,7 +11,8 @@ public class HystrixTest extends HystrixCommand {
 	}
 
 	public static void main(String[] args) throws Exception{
-		HystrixTest hystrixTest = new HystrixTest(HystrixCommandGroupKey.Factory.asKey("k1")); // key是分组，不同的线程池，隔离。key是业务组的名称，按照他取出线程池
+		// key是分组，不同的线程池，隔离。key是业务组的名称，按照他取出线程池
+		HystrixTest hystrixTest = new HystrixTest(HystrixCommandGroupKey.Factory.asKey("k1"));
 		System.out.println(hystrixTest.execute());
 	}
 
